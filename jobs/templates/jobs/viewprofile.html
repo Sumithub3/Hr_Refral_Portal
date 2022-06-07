@@ -1,0 +1,27 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+{% for info in data %}
+<div >
+    <h1>Referral ID: {{info.referral_id}}</h1>
+    <h1 style="align-content: center;">Company: {{info.company}}</h1>
+</div>
+{% endfor %}
+<h3>These are the Jobs posted by you - </h3>
+{% for info in data %}
+{% for post in info.posts.all %}
+<div class="card text-center my-2 mx-4" style="margin-top: 20px; margin-bottom: 3rem;">
+    <h5 class="card-header">{{ post.job_position }}</h5>
+    <div class="card-body">
+        <h5 class="card-title">{{ post.date_posted }}</h5>
+        <p class="card-text">Experience Required : {{ post.experience_required }}</p>
+        <p class="card-text">Job Description : {{ post.job_description }}</p>
+    </div>
+</div>
+{% endfor %}
+{% endfor %}
+{% endblock %}

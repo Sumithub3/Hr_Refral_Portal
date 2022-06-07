@@ -1,0 +1,40 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+
+
+{% block content %}
+{% if request.user.is_superuser %}
+<div class="container" style="text-align: center; margin-top: 3rem; margin-bottom: 3rem;">
+    <h1 class="display-4">Welcome {{request.user}}</h1>
+</div>
+{% endif %}
+{% if user.is_authenticated %}
+<div class="container" style="text-align: center; margin-top: 3rem; margin-bottom: 3rem;">
+    <h1 class="display-4">Welcome {{user.first_name}} {{user.last_name}}</h1>
+</div>
+<div class="jumbotron my-2" style="text-align: center; margin-top: 6rem; margin-left: 4rem; margin-right: 4rem;">
+    <h1 class="display-4">Post a Job here!</h1>
+    <p class="lead">By posting a job here you provide a opportunity to a genuine job seeker to find his/her dream Job
+    </p>
+    <hr class="my-4">
+    <p>Post and find a talent for your Company</p>
+    <div class="text-centre">
+        <a type="button" class="btn btn-primary" href={% url 'postJobs' %}>Post Job</a>
+    </div>
+</div>
+{% else %}
+<div class="jumbotron my-2" style="text-align: center; margin-top: 6rem; margin-left: 4rem; margin-right: 4rem;">
+    <h1 class="display-4">Finding a Job</h1>
+    <p class="lead">Hello job seeker, we are here to help you land on your dream job</p>
+    <hr class="my-4">
+    <p>Find a job you like</p>
+    <div class="text-centre">
+        <a type="button" class="btn btn-primary" href={% url 'jobView' %}>Apply to Jobs</a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

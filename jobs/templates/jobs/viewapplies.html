@@ -1,0 +1,41 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}
+Job View
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin-top: 3rem;">
+  <h3>You can see all the job applies here</h3>
+</div>
+<div class="text-center" style="margin-top: 3rem;">
+  <a class="btn btn-primary" href= {% url 'exportCSV' %}>Generate CSV</a>
+</div>
+<table class="table table-bordered" style="text-align: center; margin-top: 3rem; border:3px solid black;">
+  <thead>
+    <tr>
+      <th scope="col">Applied By</th>
+      <th scope="col">Company</th>
+      <th scope="col">Position Applied</th>
+      <th scope="col">Referral Used</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+    </tr>
+  </thead>
+
+  <tbody style="text-align: center; border:3px solid black;">
+    {% for info in data %}
+    <tr>
+      <td scope="row">{{ info.first_name }} {{ info.last_name }}</td>
+      <td>{{ info.applied_company }}</td>
+      <td>{{ info.applied_position }}</td>
+      <td>{{ info.job_referral }}</td>
+      <td>{{ info.email }}</td>
+      <td>{{ info.mobile }}</td>
+    </tr>
+    <p>{{ data.job_referral }} {{ data.email }}</p>
+    {% endfor %}
+
+  </tbody>
+</table>
+{% endblock %}

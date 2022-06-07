@@ -1,0 +1,47 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}
+Job Post
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="col my-4">
+        {% if user.is_authenticated %}
+        <h2>Hello {{request.user}} Enter the deatils to Post a Job</h2>
+        <form method="post" action={% url 'postJobs' %} id="postForm">{% csrf_token %}
+            <div class="form-group">
+                <label for="inputJobPosition">Job Position</label>
+                <input name="position" type="text" class="form-control" id="position"
+                    placeholder="Required Job Position">
+            </div>
+            <div class="form-group">
+                <label for="inputExperience">Experience</label>
+                <input name="experience" type="text" class="form-control" id="experience"
+                    placeholder="Experience Required">
+            </div>
+            <div class="form-group">
+                <div id="datepicker" class="md-form md-outline input-with-post-icon datepicker">
+                    <label for="inputDate">Select Today's Date</label>
+                    <span class="glyphicon glyphicon-th"><i class="fas fa-calendar input-prefix" tabindex=0></i></span>
+                    <input placeholder="Select date" type="text" name="date" id="example" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputDescription">Job Description</label>
+                <textarea name="description" class="form-control" id="description" rows="4"></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Post Job</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $('#example').datepicker({dateFormat: 'yy-mm-dd'});
+</script>
+{% endblock %}

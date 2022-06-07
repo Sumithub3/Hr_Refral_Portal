@@ -1,0 +1,62 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}
+Search View
+{% endblock %}
+
+{% block content %}
+{% for info in data %}
+
+<div class="card text-center my-2 mx-4">
+    <h5 class="card-header">{{ info.job_position }}</h5>
+    <div class="card-body">
+        <h5 class="card-title">{{ info.company }}</h5>
+        <p class="card-text">Experience Required : {{ info.experience_required }}</p>
+        <p class="card-text">Job Description : {{ info.job_description }}</p>
+        <button type="button" class="btn btn-primary mx-2" data-toggle="modal" data-target="#applyModal{{forloop.counter}}">
+            Apply
+        </button>
+    </div>
+</div>
+
+<!-- Apply Modal -->
+<div class="modal fade" id="applyModal{{forloop.counter}}" tabindex="-1" aria-labelledby="applyModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="signupModalLabel">Apply</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action={% url 'jobApply' %} method="POST"> {% csrf_token %}
+                    <div class="form-group">
+                        <label for="inputFname">First Name</label>
+                        <input type="text" class="form-control" id="fname" placeholder="First Name" name="fname">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLname">Last Name</label>
+                        <input type="text" class="form-control" id="lname" placeholder="Last Name" name="lname">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail">Email address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputMobile">Mobile no.</label>
+                        <input type="tel" class="form-control" id="mobile" placeholder="Mobile No." name="mobile">
+                    </div>
+                    <input type="hidden" id="hiddenReferral" name="hiddenReferral" value="{{ info.referral_id }}">
+                    <input type="hidden" id="hiddenJobPosition" name="hiddenJobPosition" value="{{ info.job_position }}">
+                    <input type="hidden" id="hiddenCompany" name="hiddenCompany" value="{{ info.company }}">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
