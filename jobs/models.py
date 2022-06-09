@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class job(models.Model):
-    job_id = models.AutoField(primary_key=True)
+    job_id = models.BigAutoField(primary_key=True)
     job_position = models.CharField(max_length=30)
     count = models.IntegerField(default=0)
 
@@ -18,7 +18,7 @@ class post(models.Model):
     job_description = models.TextField()
 
     def __str__(self):
-        return self.job_position
+        return self.job_positionSS
 
 class profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -42,7 +42,7 @@ class apply(models.Model):
         return self.first_name + ' ' + self.last_name
 
 class contact(models.Model):
-    msg_id = models.AutoField(primary_key=True)
+    msg_id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=50, default='')
     phone = models.CharField(max_length=20, default='')
